@@ -1,0 +1,34 @@
+server:
+  port: 8084
+
+spring:
+  datasource:
+    url: jdbc:mysql://database-2.cxm2eg0s4t4k.eu-north-1.rds.amazonaws.com:3306/test?sessionVariables=sql_mode='NO_ENGINE_SUBSTITUTION'&jdbcCompliantTruncation=false
+    username: anish
+    password: anshu54321
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  application:
+    name: sms-service
+
+
+  kafka:
+    consumer:
+      group-id: push-service-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        spring:
+          json:
+            trusted.packages: "*"  # Allow all packages for deserialization
+    listener:
+      missing-topics-fatal: false
+
+sms:
+  retries: 3
+  batch-size: 10
+  auth_token: "382a7b66-49a1-11ef-8b60-0200cd936042"

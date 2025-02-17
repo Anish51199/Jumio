@@ -1,0 +1,41 @@
+server:
+  port: 8082
+
+spring:
+  kafka:
+    consumer:
+      group-id: email-service-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        spring:
+          json:
+            trusted.packages: "*"  # Allow all packages for deserialization
+    listener:
+      missing-topics-fatal: false
+
+
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: awsranjan5@gmail.com
+    password:  #  password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  datasource:
+    url: jdbc:mysql://database-2.cxm2eg0s4t4k.eu-north-1.rds.amazonaws.com:3306/test?sessionVariables=sql_mode='NO_ENGINE_SUBSTITUTION'&jdbcCompliantTruncation=false
+    username: anish
+    password: anshu54321
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
